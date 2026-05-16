@@ -1,0 +1,10 @@
+{
+  "name": "cliplite-frontend",
+  "version": "1.0.0",
+  "description": "ClipLite Frontend",
+  "scripts": {
+    "dev": "echo 'No dev server needed'",
+    "build": "echo 'Build complete'"
+  },
+  "devDependencies": {}
+}

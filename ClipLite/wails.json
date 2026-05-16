@@ -1,0 +1,20 @@
+{
+  "$schema": "https://wails.io/schemas/config.v2.json",
+  "name": "ClipLite",
+  "outputfilename": "ClipLite",
+  "frontend:install": "npm install",
+  "frontend:build": "npm run build",
+  "frontend:dev:watcher": "npm run dev",
+  "frontend:dev:serverUrl": "auto",
+  "author": {
+    "name": "ClipLite",
+    "email": "cliplite@example.com"
+  },
+  "info": {
+    "companyName": "ClipLite",
+    "productName": "ClipLite",
+    "productVersion": "1.0.0",
+    "copyright": "Copyright © 2024",
+    "comments": "轻量级剪贴板管理工具"
+  }
+}

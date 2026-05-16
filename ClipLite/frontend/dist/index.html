@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClipLite</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div id="app">
+        <div class="titlebar">
+            <div class="titlebar-drag">
+                <span class="title">ClipLite</span>
+            </div>
+            <div class="titlebar-buttons">
+                <button class="titlebar-btn minimize-btn" onclick="minimizeWindow()">─</button>
+                <button class="titlebar-btn close-btn" onclick="exitApp()">✕</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="搜索..." oninput="searchRecords()">
+            </div>
+
+            <div class="tabs">
+                <button class="tab active" data-tab="history" onclick="switchTab('history')">历史记录</button>
+                <button class="tab" data-tab="favorites" onclick="switchTab('favorites')">收藏</button>
+                <button class="tab" data-tab="settings" onclick="switchTab('settings')">设置</button>
+            </div>
+
+            <div id="historyTab" class="tab-content active">
+                <div class="action-bar">
+                    <button class="action-btn" onclick="clearAllRecords()">清空全部</button>
+                </div>
+                <div id="historyList" class="record-list"></div>
+            </div>
+
+            <div id="favoritesTab" class="tab-content">
+                <div id="favoritesList" class="record-list"></div>
+            </div>
+
+            <div id="settingsTab" class="tab-content">
+                <div class="settings-form">
+                    <div class="setting-item">
+                        <label>保存天数</label>
+                        <div class="setting-row">
+                            <input type="number" id="saveDaysInput" min="1" max="3650" placeholder="30" value="30">
+                            <span style="color:#888; font-size:13px;">天</span>
+                        </div>
+                        <div class="setting-hint">收藏的内容不受此限制，永久保存</div>
+                    </div>
+                    <div class="setting-item">
+                        <label>数据存储位置</label>
+                        <div class="setting-row">
+                            <input type="text" id="storagePathInput" readonly>
+                            <button class="btn-small btn-browse" onclick="selectStoragePath()">浏览</button>
+                        </div>
+                        <div class="setting-hint">修改后需重启生效，数据将自动迁移到新位置</div>
+                    </div>
+                    <button class="setting-save-all" onclick="saveAllSettings()">保存设置</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/wails/ipc.js"></script>
+    <script src="/wails/runtime.js"></script>
+    <script src="/app.js"></script>
+</body>
+</html>

@@ -155,21 +155,23 @@ function escapeForDisplay(text) {
 
 async function useRecord(content) {
     try {
-        await navigator.clipboard.writeText(content);
-        await window.go.main.App.HideWindow();
+        await window.go.main.App.CopyToClipboard(content);
     } catch (err) {
         try {
-            const ta = document.createElement('textarea');
-            ta.value = content;
-            ta.style.position = 'fixed';
-            ta.style.left = '-9999px';
-            document.body.appendChild(ta);
-            ta.select();
-            document.execCommand('copy');
-            document.body.removeChild(ta);
-            await window.go.main.App.HideWindow();
+            await navigator.clipboard.writeText(content);
         } catch (err2) {
-            console.error('使用失败:', err2);
+            try {
+                const ta = document.createElement('textarea');
+                ta.value = content;
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            } catch (err3) {
+                console.error('使用失败:', err3);
+            }
         }
     }
 }

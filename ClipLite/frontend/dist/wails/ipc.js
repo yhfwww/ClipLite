@@ -35,6 +35,9 @@ window.go = {
             ClearAllRecords: function() {
                 return window.wails.Invoke('App.ClearAllRecords');
             },
+            AddRecord: function(content) {
+                return window.wails.Invoke('App.AddRecord', content);
+            },
             GetConfig: function() {
                 return window.wails.Invoke('App.GetConfig');
             },
@@ -43,6 +46,21 @@ window.go = {
             },
             CopyToClipboard: function(content) {
                 return window.wails.Invoke('App.CopyToClipboard', content);
+            },
+            HideWindow: function() {
+                return window.wails.Invoke('App.HideWindow');
+            },
+            ShowWindow: function() {
+                return window.wails.Invoke('App.ShowWindow');
+            },
+            ExitApp: function() {
+                return window.wails.Invoke('App.ExitApp');
+            },
+            RecordFromPaste: function(content) {
+                return window.wails.Invoke('App.RecordFromPaste', content);
+            },
+            SelectDirectory: function() {
+                return window.wails.Invoke('App.SelectDirectory');
             }
         }
     }

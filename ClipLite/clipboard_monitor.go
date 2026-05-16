@@ -67,12 +67,12 @@ func (m *ClipboardMonitor) Stop() {
 	}
 }
 
-func (m *ClipboardMonitor) SetClipboard(content string) {
+func (m *ClipboardMonitor) SetClipboard(content string) error {
 	m.mu.Lock()
 	m.lastContent = content
 	m.mu.Unlock()
 
-	writeClipboard(content)
+	return writeClipboard(content)
 }
 
 func (m *ClipboardMonitor) GetLastContent() string {

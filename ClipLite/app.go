@@ -16,14 +16,14 @@ import (
 )
 
 type App struct {
-	ctx      context.Context
-	db       *sql.DB
-	config   *Config
-	monitor  *ClipboardMonitor
-	tray     *SystemTray
-	dataDir  string
-	logFile  *os.File
-	logMu    sync.Mutex
+	ctx     context.Context
+	db      *sql.DB
+	config  *Config
+	monitor *ClipboardMonitor
+	tray    *SystemTray
+	dataDir string
+	logFile *os.File
+	logMu   sync.Mutex
 }
 
 type Config struct {
@@ -188,7 +188,7 @@ func (a *App) shutdown(ctx context.Context) {
 
 func (a *App) loadConfig() {
 	configPath := filepath.Join(a.dataDir, "config.json")
-	
+
 	data, err := os.ReadFile(configPath)
 	if err != nil {
 		if os.IsNotExist(err) {
@@ -220,7 +220,7 @@ func (a *App) loadConfig() {
 
 func (a *App) saveConfig() {
 	configPath := filepath.Join(a.dataDir, "config.json")
-	
+
 	data, err := json.MarshalIndent(a.config, "", "  ")
 	if err != nil {
 		a.log(fmt.Sprintf("序列化配置失败: %v", err))
@@ -237,7 +237,7 @@ func (a *App) saveConfig() {
 
 func (a *App) initTray() {
 	iconPath := ""
-	
+
 	execPath, err := os.Executable()
 	if err == nil && execPath != "" {
 		execDir := filepath.Dir(execPath)
@@ -544,15 +544,16 @@ func (a *App) SelectDirectory() (string, error) {
 	return path, nil
 }
 
-func (a *App) CopyToClipboard(content string) error {
+func (a *App) CopyToClipboard(content string) (err error) {
 	defer func() {
 		if r := recover(); r != nil {
 			a.log(fmt.Sprintf("PANIC in CopyToClipboard: %v", r))
+			err = fmt.Errorf("copy to clipboard panic: %v", r)
 		}
 	}()
 
 	if a.monitor != nil {
-		a.monitor.SetClipboard(content)
+		return a.monitor.SetClipboard(content)
 	}
-	return nil
+	return writeClipboard(content)
 }

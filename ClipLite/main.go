@@ -26,7 +26,7 @@ func main() {
 		DisableResize:     false,
 		Frameless:         true,
 		StartHidden:       false,
-		HideWindowOnClose: true,
+		HideWindowOnClose: false,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
@@ -34,16 +34,15 @@ func main() {
 		OnStartup:        app.startup,
 		OnShutdown:       app.shutdown,
 		OnBeforeClose: func(ctx context.Context) bool {
-			app.ExitApp()
-			return true
+			return false
 		},
 		Windows: &windows.Options{
 			WebviewIsTransparent:              false,
-			WindowIsTranslucent:              false,
-			DisableWindowIcon:               false,
+			WindowIsTranslucent:               false,
+			DisableWindowIcon:                 false,
 			DisableFramelessWindowDecorations: true,
-			WebviewUserDataPath:             "",
-			Theme:                           windows.SystemDefault,
+			WebviewUserDataPath:               "",
+			Theme:                             windows.SystemDefault,
 		},
 		Bind: []interface{}{
 			app,
